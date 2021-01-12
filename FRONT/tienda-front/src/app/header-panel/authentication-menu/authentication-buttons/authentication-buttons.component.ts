@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { User } from 'src/app/shared/models/User';
 import { AuthService } from '../../../auth/auth.service';
 import { LoginDialogComponent } from '../login-dialog/login-dialog.component';
 import { LogoutDialogComponent } from '../logout-dialog/logout-dialog.component';
@@ -11,13 +12,13 @@ import { RegisterDialogComponent } from '../register-dialog/register-dialog.comp
   styleUrls: ['./authentication-buttons.component.scss']
 })
 export class AuthenticationButtonsComponent implements OnInit {
-  userLogged: boolean = false;
+  user = {username: ""};
 
   constructor(public dialog: MatDialog, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.auth.user$.subscribe((user) => {
-      this.userLogged = !!user;
+      this.user = user;
     })
   }
 

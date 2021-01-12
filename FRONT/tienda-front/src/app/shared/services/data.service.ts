@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Author } from '../models/Author';
 import { Book } from '../models/Book';
+import { Category } from '../models/Category';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,13 @@ export class DataService {
   private _books: Book[];
   authors: Author[];
 
+  $filter: Subject<any> = new Subject<any>();
+
   get books(): Book[]{
     return this._books;
   }
   set books(books: Book[]){
     this._books = books;
-    // let uniqueAuthors = [...new Set(this._books.map(book => book.AUTHOR_ID))];
-    
-    // uniqueAuthors.forEach(author => this.addAuthor(author))
-    // this.http.get<Author[]>(`${environment.api}/authors`).subscribe(data => {
-    //   console.log(data)
-    //   this.authors = data
-    // });
   }
 
   constructor(private http: HttpClient) { 
@@ -42,5 +38,9 @@ export class DataService {
       }));
     }
   } 
+
+  getAvailableBooks(){
+    return this._books.filter(book => book.PRODUCTS.length > 0);
+  }
 
 }

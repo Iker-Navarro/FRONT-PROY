@@ -18,12 +18,18 @@ export class MainPanelComponent implements OnInit {
     this.http.get<any>(environment.api + "/books")
     .subscribe((res)=>{
       this.dataService.books = res;
-      this.books = this.getAvailableBooks();
-    })
+      this.books = this.dataService.getAvailableBooks(); 
+      
+      this.dataService.$filter.subscribe((cat_id) => {
+        this.books = this.dataService.getAvailableBooks()
+          .filter(book => book.CATEGORY_ID == cat_id);
+      })
+    });
+
+   
   }
 
-  getAvailableBooks(){
-    return this.dataService.books.filter(book => book.PRODUCTS.length > 0);
-  }
+
+  
 
 }

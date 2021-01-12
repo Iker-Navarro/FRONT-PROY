@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/shared/models/Category';
+import { DataService } from 'src/app/shared/services/data.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,13 +12,16 @@ import { environment } from 'src/environments/environment';
 export class CategoryMenuComponent implements OnInit {
   categories: Category[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.http.get<any>(environment.api + "/categories")
     .subscribe((res: Category[])=>{
       this.categories = res;
-    })
+    });
   }
 
+  setFilter(id: number){
+    this.dataService.$filter.next(id);
+  }
 }
