@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Montserrat', "Helvetica Neue", sans-serif; }
+
+// Closing dialog problem solution
+.mat-button, .mat-flat-button, .mat-stroked-button, .mat-raised-button{   
+    &.cdk-program-focused .mat-button-focus-overlay{
+        opacity: 0 !important;
+    }
+}

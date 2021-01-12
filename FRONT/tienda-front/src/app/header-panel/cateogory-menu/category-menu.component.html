@@ -1,0 +1,9 @@
+<button mat-raised-button [matMenuTriggerFor]="mainMenu">Filtrar por categoría</button>
+<mat-menu #mainMenu="matMenu">
+    <ng-container *ngFor="let cat of categories">
+        <button mat-menu-item [matMenuTriggerFor]="menu">{{cat.NAME}}</button>
+        <mat-menu #menu="matMenu">
+            <button *ngFor="let c of cat.CHILDREN" mat-menu-item>{{c.NAME}}</button>
+        </mat-menu>
+    </ng-container>
+</mat-menu>

@@ -1,0 +1,9 @@
+<div>
+    <ng-container *ngIf="!userLogged;else logout">
+        <button mat-raised-button (click)="openRegister()">Register</button>
+        <button mat-raised-button (click)="openLogin()">Login</button>
+    </ng-container>
+    <ng-template #logout>
+        <button mat-raised-button (click)="openLogout()">Logout</button>
+    </ng-template>
+</div>

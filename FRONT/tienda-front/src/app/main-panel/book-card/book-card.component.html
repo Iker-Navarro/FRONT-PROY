@@ -1,0 +1,15 @@
+<div class="book-container">
+    <img [src]="url">
+    <div class="book-info-container">
+        <div>
+            <p>{{book.TITLE}}</p>
+            <p>{{author.NAME}}<p>
+        </div>
+        <div>
+            <div *ngFor="let prod of book.PRODUCTS">
+                <p>{{prod.TYPE}} {{prod.PRICE}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

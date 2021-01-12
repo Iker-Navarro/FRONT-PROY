@@ -1,0 +1,20 @@
+.book-container{
+    position: relative;
+    width: 300px;
+    height: 600px;
+    img{
+        width: 100%;
+        height: 75%;
+        object-position: center;
+        object-fit: cover;
+    }
+    .book-info-container{
+        height: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    p{
+        margin: 0;
+    }
+}

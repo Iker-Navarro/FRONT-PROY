@@ -1,0 +1,70 @@
+<div class="container">
+    <ng-container *ngIf="!registerOk;else registered">
+        <h2>
+            <span>REGISTRO</span>
+            <button type="button" mat-stroked-button matSuffix mat-icon-button tabindex="-1" (click)="close()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </h2>
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
+            <div>
+                <mat-form-field>
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" [(ngModel)]="userValue" name="username" required>
+                    <button type="button" mat-button *ngIf="userValue" matSuffix mat-icon-button aria-label="Clear" (click)="userValue=''" tabindex="-1">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <span class="message">Escribe tu usuario para comprobar su validez</span>
+            </div>
+            <mat-form-field>
+                <mat-label>email</mat-label>
+                <input matInput type="text" [(ngModel)]="emailValue" name="email" required email>
+                <button type="button" mat-button *ngIf="emailValue" matSuffix mat-icon-button aria-label="Clear" (click)="emailValue=''" tabindex="-1">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <div>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="password_hidden ? 'password' : 'text'" ngModel name="password" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>confirmación</mat-label>
+                    <input matInput [type]="password_hidden ? 'password' : 'text'" ngModel name="password2" required>
+                </mat-form-field>
+                <button type="button" mat-icon-button matSuffix (click)="password_hidden = !password_hidden" aria-label="Clear" tabindex="-1">
+                    <mat-icon>{{password_hidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </div>
+            <mat-form-field>
+                <mat-label>Dirección</mat-label>
+                <input matInput type="text" [(ngModel)]="addressValue" name="address" required>
+                <button type="button" mat-button *ngIf="addressValue" matSuffix mat-icon-button aria-label="Clear" (click)="addressValue=''" tabindex="-1">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+            <div>
+                <mat-form-field>
+                    <mat-label>Localidad</mat-label>
+                    <input matInput type="text" [(ngModel)]="cityValue" name="city" required>
+                    <button type="button" mat-button *ngIf="cityValue" matSuffix mat-icon-button aria-label="Clear" (click)="cityValue=''" tabindex="-1">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Código Postal</mat-label>
+                    <input matInput type="text" [(ngModel)]="zipValue" name="zip_code" required>
+                    <button type="button" mat-button *ngIf="zipValue" matSuffix mat-icon-button aria-label="Clear" (click)="zipValue=''" tabindex="-1">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <button type="submit" mat-raised-button [disabled]="!f.valid">Regístrate</button> 
+        </form>
+    </ng-container>
+    <ng-template #registered>
+        <h2>USUARIO REGISTRADO!</h2>
+    </ng-template>
+</div>
+
