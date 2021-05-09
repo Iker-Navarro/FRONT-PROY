@@ -18,11 +18,13 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 
-app.use("/api/categories", require("./routes/categories"))
-app.use("/api/books", require("./routes/books"))
-app.use("/api/authors", require("./routes/authors"))
-app.use("/api/auth/register", require("./routes/register"))
-app.use("/api/auth/login", require("./routes/login"))
+app.use("/api/categories", require("./routes/categories"));
+app.use("/api/books", require("./routes/books"));
+app.use("/api/authors", require("./routes/authors"));
+app.use("/api/auth/register", require("./routes/register"));
+app.use("/api/auth/login", require("./routes/login"));
+app.use("/api/purchase", require("./routes/purchase"));
+
 
 app.listen(process.env.PORT || "5000", () => {
     console.log("SERVER RUNNING ON PORT " + (process.env.PORT || "5000"));

@@ -1,0 +1,55 @@
+<ng-container *ngIf="book && author; else notFound">
+    <div class="row mt-5">
+        <div class="col-12 col-md-6">
+            <img [src]="getCoverImage()" alt="book.TITLE" class="w-100">
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="font-weight-bold mb-0 my-2">{{book.TITLE}}</h1>
+                <button class="btn btn-primary" [routerLink]="['/store']">VOLVER A LA TIENDA</button>
+            </div>
+            <section class="my-5">
+                <h2>RESUMEN</h2>
+                <p class="text-justify">{{book.SUMMARY}}</p>
+            </section>
+            <section class="my-5">
+                <h2>{{author.NAME}}</h2>
+                <p class="text-justify">{{author.DESCRIPTION}}</p>
+            </section>
+        </div>
+    </div>
+        <h1 class="mt-3">PRODUCTOS DISPONIBLES</h1>
+        <div class="row">
+            <div *ngFor="let prod of book.PRODUCTS" class="col-12 col-sm-4">
+                <div  class="card">
+                    <h3 class="card-header m-0">{{prod.TYPE}}</h3>
+                    <div class="card-body text-center">
+                        <h2 class="card-text">Precio: {{prod.PRICE}}€</h2>
+                        <ng-container *ngIf="logedUser; else notLoged">
+                            <form (ngSubmit)="addToCart(prod, f)" #f="ngForm">
+                                <button type="submit" class="btn btn-success w-100 mb-3">Añadir al carro</button>
+                                <div class="d-flex align-items-center">
+                                    <select class="form-control p-0" id="cantidad" name="cantidad" [ngModel]="default">
+                                        <option *ngFor="let item of [].constructor(maxAmount); let i = index" >{{i + 1}}</option>
+                                    </select>
+                                    <label for="cantidad" class="lead"> Unidades</label>
+                                </div>
+                            </form>
+                        </ng-container>
+                        <ng-template #notLoged>
+                            <button class="btn btn-info w-100" (click)="openLogin()">Inicia sesión para comprar</button>
+                        </ng-template>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div *ngIf="message; else empty" class="alert alert-success mt-3" role="alert" [@fadeInOut]>
+            {{message}}
+        </div>
+        <ng-template #empty>
+            <br><br><br>
+        </ng-template>
+</ng-container>
+<ng-template #notFound>
+    <h1>404: Book not found</h1>
+</ng-template>

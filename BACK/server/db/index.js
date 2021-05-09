@@ -31,6 +31,15 @@ class Database{
         })
     }
 
+    book(book_id){
+        return new Promise((resolve, reject) => {
+            this.pool.query("select * from books where id = ?", [book_id], (err, results) => {
+                if(err) return reject(err);
+                return resolve(results);
+            })
+        })
+    }
+
     products(book_id){
         return new Promise((resolve, reject) => {
             this.pool.query("select * from book_product where book_id = ?",[book_id] ,(err, results) => {
@@ -60,15 +69,15 @@ class Database{
 
     login(username, password){
         return new Promise((resolve, reject) => {
-            this.pool.query("select username, email, password, address, city, zip_code from users where username = ?",[username] ,async (err, results) => {
+            this.pool.query("select id, username, email, password, address, city, zip_code from users where username = ?",[username] ,async (err, results) => {
                 if(err) return reject(err);
                 if(results.length > 0){
                     const passwordCorrect = await this.checkPassword(password, results[0].password);
 
-                    console.log(passwordCorrect);
+                    //console.log(passwordCorrect);
                     if(passwordCorrect){
-                        const {username, email, address, city, zip_code} = results[0];
-                        return resolve({username, email, address, city, zip_code});
+                        const {id, username, email, address, city, zip_code} = results[0];
+                        return resolve({id, username, email, address, city, zip_code});
                     }else{
                         return resolve(false);
                     }
@@ -108,6 +117,62 @@ class Database{
                 return resolve(results[0].amount === 0);
             })
         });
+    }
+
+    purchase(cartLines, userId){
+        let total = cartLines.map(el => el.PRICE * el.AMOUNT).reduce((acc, next) => acc + next);
+
+        return new Promise(async (resolve, reject) => {
+            this.pool.query(
+            "insert into purchases (date, total_price, user_id) values (now(), ?, ?)", 
+            [total, userId] ,
+            (err, results) => {
+                if(err) return reject(err);
+                const insertedId = results.insertId;
+                cartLines.forEach(async line => {
+                    await this.insertSinglePurchaseLine(line, insertedId);
+                })
+                return resolve(results.affectedRows > 0);
+            })
+        })
+    }
+
+    insertSinglePurchaseLine(line, purchase_id){
+        return new Promise(async (resolve, reject) => {
+            this.pool.query("insert into product_purchase (id_product, id_purchase, amount) values (?, ?, ?)", [line.PRODUCT_ID, purchase_id, line.AMOUNT], (err, results) => {
+                if(err) return reject(err);
+                return resolve(results.affectedRows > 0);
+            })
+        });
+    }
+
+    getPurchases(uid){
+        return new Promise((resolve, reject) => {
+            this.pool.query("select id, date, total_price from purchases where user_id = ?",[uid] ,async (err, results) => {
+                if(err) return reject(err);
+                let purchases = await Promise.all(results.map(async (purchase) => {
+                    purchase.LINES = await this.getPurchaseLines(purchase.id);
+                    return purchase;
+                }))
+
+                return resolve(purchases);
+            })
+        })
+    }
+
+    getPurchaseLines(purchaseId){
+        const query = `
+            select books.id as book_id, title, type, price, amount 
+            from product_purchase, book_product, books 
+            where books.id = book_product.book_id 
+            and book_product.id = product_purchase.id_product 
+            and id_purchase = ?`;
+        return new Promise((resolve, reject) => {
+            this.pool.query(query, [purchaseId] ,(err, results) => {
+                if(err) return reject(err);
+                return resolve(results);
+            })
+        })
     }
 }
 

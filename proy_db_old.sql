@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-02-2021 a las 20:07:52
+-- Tiempo de generación: 12-01-2021 a las 07:06:24
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -138,16 +138,6 @@ CREATE TABLE `product_purchase` (
   `AMOUNT` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `product_purchase`
---
-
-INSERT INTO `product_purchase` (`ID`, `ID_PRODUCT`, `ID_PURCHASE`, `AMOUNT`) VALUES
-(1, 5, 1, 1),
-(2, 1, 2, 10),
-(3, 6, 2, 1),
-(4, 2, 3, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -160,15 +150,6 @@ CREATE TABLE `purchases` (
   `TOTAL_PRICE` float NOT NULL,
   `USER_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `purchases`
---
-
-INSERT INTO `purchases` (`ID`, `DATE`, `TOTAL_PRICE`, `USER_ID`) VALUES
-(1, '2021-02-16 18:52:30', 8.5, 9),
-(2, '2021-02-16 18:54:06', 50, 9),
-(3, '2021-02-16 19:00:48', 50, 12);
 
 -- --------------------------------------------------------
 
@@ -194,11 +175,7 @@ INSERT INTO `users` (`ID`, `USERNAME`, `EMAIL`, `PASSWORD`, `ADDRESS`, `CITY`, `
 (1, 'admin', 'admin@admin', 'temp', '123', '123', 123),
 (6, 'admina', '1', '$2b$10$om0LzSPYfGwfN65znCDcHufSoa0bQkq2A.i52J6Vtfz0uxJgT5kq6', '1', '1', 1),
 (7, 'a', 'asd@asd', '$2b$10$8jET.8kINb4HbRC5MkFDKeZDtYw1AgcEMTEjA5/y6MawDut89ISx6', 'asd', 'asd', 0),
-(8, 'Nuevo!', 'asd@asd', '$2b$10$M0pAh0qZ69OBXxln4ZXv0uCUQAc1zy7fmCnutF7eZDoWjwIOGxVmK', 'asd', 'a', 0),
-(9, 'iker', 'iker@iker.com', '$2b$10$UPB.xV0KS8uYmGauvHHH3OJYNt35R4f6YFYjme6T1q3sVukCSIgvC', 'asdd asdasad sd', 'd assda ', 0),
-(10, 'prueba', 'asd@asd', '$2b$10$/TMw70nqplMDEfD0zgN/1u9SvYCa8s.qs8zPwxeFpCk/vK.L7HowC', 'asdd assda sad asd das ', 'fasfas', 123),
-(11, 'asd', 'asd@asd', '$2b$10$utPgwX0rQqyBX8eEebLd6.lmC0sum6OwMW9EtNfmMGiXpj/avVYSG', 'asd', 'asd', 0),
-(12, 'kai', 'sdf@jkhjl', '$2b$10$PNYpiv9U1fAoa3rTr5n77eSxcMoJD.0ClZb22p4B4I7jCjbMAPoG2', 'dsf', 'dfsdaf', 0);
+(8, 'Nuevo!', 'asd@asd', '$2b$10$M0pAh0qZ69OBXxln4ZXv0uCUQAc1zy7fmCnutF7eZDoWjwIOGxVmK', 'asd', 'a', 0);
 
 --
 -- Índices para tablas volcadas
@@ -285,19 +262,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `product_purchase`
 --
 ALTER TABLE `product_purchase`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas

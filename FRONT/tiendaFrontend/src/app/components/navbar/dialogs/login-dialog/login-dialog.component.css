@@ -1,0 +1,14 @@
+
+.dialog-container{
+    padding: 20px
+}
+h2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,52 @@
+<ng-container *ngIf="carro.length != 0; else vacio">
+    <div class="d-flex justify-content-between align-items-center my-5">
+        <h1 class="font-weight-bold mb-0 my-2">CARRO</h1>
+        <button class="btn btn-primary" [routerLink]="['/store']">VOLVER A LA TIENDA</button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">ISBN</th>
+                <th scope="col">TITULO</th>
+                <th scope="col">TIPO</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">CANTIDAD</th>
+                <th scope="col">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let linea of carro"  class="text-center">
+                <td class="align-middle">{{linea.ISBN}}</td>
+                <td class="align-middle">{{linea.TITLE}}</td>
+                <td class="align-middle">{{linea.PRODUCT.TYPE | uppercase}}</td>
+                <td class="align-middle">{{linea.PRODUCT.PRICE}}€</td>
+                <td class="align-middle">{{linea.AMOUNT}} uds</td>
+                <td class=" d-flex align-items-center justify-content-center">
+                    <button class="btn btn-sm btn-secondary mr-1"[routerLink]="['/book', linea.BOOK_ID]">VER EN TIENDA</button>
+                    <button class="btn btn-sm btn-danger ml-1" (click)="eliminar(linea)">ELIMINAR</button>
+                </td>
+            </tr>
+            <tr class="table-success font-weight-bold">
+                <td scope="row" colspan="5" class="text-right">PRECIO TOTAL</td>
+                <td class="text-center">{{total()}}€</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-8">
+            <button class="btn btn-success w-100" (click)="finalizarCompra()">Finalizar compra</button>    
+        </div>
+        <div class="col-4">
+            <button class="btn btn-danger w-100" (click)="vaciar()">Vaciar carro</button>
+        </div>
+    </div>
+</ng-container>
+<ng-template #vacio>
+    <div class="jumbotron my-5">
+        <h1 class="display-4">El carro está vacio</h1>
+        <hr class="my-4">
+        <p class="lead text-center">
+            <a class="btn btn-primary btn-lg" [routerLink]="['/store']" role="button">Ir a la tienda</a>
+        </p>
+      </div>
+</ng-template>

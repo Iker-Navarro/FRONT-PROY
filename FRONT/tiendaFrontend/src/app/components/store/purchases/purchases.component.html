@@ -1,0 +1,42 @@
+<ng-container *ngIf="purchases && purchases.length != 0; else vacio">
+    <div class="d-flex justify-content-between align-items-center my-5">
+        <h1 class="font-weight-bold mb-0 my-2">COMPRAS REALIZADAS</h1>
+        <button class="btn btn-primary" [routerLink]="['/store']">VOLVER A LA TIENDA</button>
+    </div>
+    <table class="table table-hover mb-5" *ngFor="let purchase of purchases">
+        <thead>
+            <tr class="table-secondary">
+                <th>Compra nº{{purchase.id}}</th>
+                <th colspan="2">Realizada el {{purchase.date | date:'short'}}</th>
+                <th colspan="2">Coste total: {{purchase.total_price}}€</th>
+            </tr>
+            <tr class="text-center">
+                <td scope="col">TITULO</td>
+                <td scope="col">TIPO</td>
+                <td scope="col">PRECIO</td>
+                <td scope="col">CANTIDAD</td>
+                <td scope="col">ACCIONES</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let linea of purchase.LINES" class="text-center">
+                <td class="align-middle">{{linea.title}}</td>
+                <td class="align-middle">{{linea.type}}</td>
+                <td class="align-middle">{{linea.price}}€</td>
+                <td class="align-middle">{{linea.amount}}uds</td>
+                <td class="align-middle">
+                    <button class="btn btn-secondary w-100" [routerLink]="['/book', linea.book_id]">VER</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+<ng-template #vacio>
+    <div class="jumbotron my-5">
+        <h1 class="display-4">Todavía no se ha realizado ninguna compra</h1>
+        <hr class="my-4">
+        <p class="lead text-center">
+            <a class="btn btn-primary btn-lg" [routerLink]="['/store']" role="button">Ir a la tienda</a>
+        </p>
+      </div>
+</ng-template>
